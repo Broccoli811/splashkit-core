@@ -68,15 +68,36 @@ namespace splashkit_lib
         return rgba_color(red, green, blue, 1.0f);
     }
 
-    /// _returs a color from a combination of hue, saturation, and brightness.
+    /// _returns a color from a combination of hue, saturation, and brightness.
     ///
-    /// @param hue, saturation, brightness: _values between 0 and 1
-    /// @returns _the matching color
+    /// @param hue, saturation, brightness: _values between 0.0 and 1.0
+    /// @returns _the matching RGB color
+    ///
+    /// @note: Values outside the range of 0.0 to 1.0 will be clamped to that range.
+    /// If clamping occurs, rounds the number to the nearest valid value (either 0.0 or 1.0), 
+    /// and the color may not be as expected and will be logged.
     ///
     color hsb_color(double hue, double saturation, double brightness)
     {
         double domain_offset;
         double red, green, blue;
+
+        double original_hue = hue;
+        double original_saturation = saturation;
+        double original_brightness = brightness;
+
+        if (hue < 0.0) hue = 0.0;
+        if (hue > 1.0) hue = 1.0;
+
+        if (saturation < 0.0) saturation = 0.0;
+        if (saturation > 1.0) saturation = 1.0;
+
+        if (brightness < 0.0) brightness = 0.0;
+        if (brightness > 1.0) brightness = 1.0;
+
+        if (hue != original_hue || saturation != original_saturation || brightness != original_brightness) {
+            LOG(WARNING) << "Error in hsb_color received out-of-bounds input. Values have been clamped.";
+        }
 
         if (brightness == 0)
             return COLOR_BLACK;

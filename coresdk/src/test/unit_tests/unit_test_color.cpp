@@ -78,6 +78,7 @@ TEST_CASE("hsb_color converts HSB to RGB correctly", "[hsb_color]")
         REQUIRE(red_of(black) == 0);
         REQUIRE(green_of(black) == 0);
         REQUIRE(blue_of(black) == 0);
+        REQUIRE(alpha_of(black) == 255);
     }
 
     SECTION("gray when saturation is 0")
@@ -86,6 +87,7 @@ TEST_CASE("hsb_color converts HSB to RGB correctly", "[hsb_color]")
         REQUIRE(red_of(gray) == 127);
         REQUIRE(green_of(gray) == 127);
         REQUIRE(blue_of(gray) == 127);
+        REQUIRE(alpha_of(gray) == 255);
     }
 
     SECTION("pure red from HSB")
@@ -134,5 +136,24 @@ TEST_CASE("hsb_color converts HSB to RGB correctly", "[hsb_color]")
         REQUIRE(red_of(magenta) == 255);
         REQUIRE(green_of(magenta) == 0);
         REQUIRE(blue_of(magenta) == 255);
+    }
+    
+    SECTION("Out-of-bounds values still return valid colors")
+    {
+        color low_hue = hsb_color(-0.5, 1.0, 1.0);
+        color high_hue = hsb_color(1.5, 1.0, 1.0);
+        color low_saturation = hsb_color(0.5, -0.5, 1.0);
+        color high_saturation = hsb_color(0.5, 1.5, 1.0);
+        color low_brightness = hsb_color(0.5, 1.0, -0.5);
+        color high_brightness = hsb_color(0.5, 1.0, 1.5);
+
+        REQUIRE(red_of(low_hue) >= 0);
+        REQUIRE(red_of(high_hue) <= 255);
+
+        REQUIRE(green_of(low_saturation) >= 0);
+        REQUIRE(green_of(high_saturation) <= 255);
+
+        REQUIRE(blue_of(low_brightness) >= 0);
+        REQUIRE(blue_of(high_brightness) <= 255);
     }
 }
