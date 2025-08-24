@@ -39,9 +39,6 @@ namespace splashkit_lib
         return rgba_color(red / 255.0f, green / 255.0f, blue / 255.0f, alpha / 255.0f);
     }
 
-    /// gets a color given its color components. Each of the components has
-    /// a value between 0 and 1
-    ///
     color rgba_color(double red, double green, double blue, double alpha)
     {
         color result;
@@ -53,31 +50,16 @@ namespace splashkit_lib
         return result;
     }
 
-    /// gets a color given its _r_g_b components. Each of the components has
-    /// a value between 0 and 1.0f.
-    ///
     color rgb_color(int red, int green, int blue)
     {
         return rgba_color(red / 255.0f, green / 255.0f, blue / 255.0f, 1.0f);
     }
 
-    /// gets a color given its _r_g_b components. Each of the components has
-    /// a value between 0 and 1.
-    ///
     color rgb_color(double red, double green, double blue)
     {
         return rgba_color(red, green, blue, 1.0f);
     }
 
-    /// returns a color from a combination of hue, saturation, and brightness.
-    ///
-    /// @param hue, saturation, brightness: values between 0.0 and 1.0
-    /// @returns the matching RGB color
-    ///
-    /// @note: Values outside the range of 0.0 to 1.0 will be clamped to that range.
-    /// If clamping occurs, rounds the number to the nearest valid value (either 0.0 or 1.0), 
-    /// and the color may not be as expected and will be logged.
-    ///
     color hsb_color(double hue, double saturation, double brightness)
     {
         double domain_offset;
@@ -92,7 +74,7 @@ namespace splashkit_lib
         brightness = std::clamp(brightness, 0.0, 1.0);
 
         if (hue != original_hue || saturation != original_saturation || brightness != original_brightness) {
-            LOG(WARNING) << "Error in hsb_color received out-of-bounds input. Values have been clamped.";
+            LOG(WARNING) << "Attempting to create a color from out-of-bounds HSB components. Values should be between 0 and 1.";
         }
 
         if (brightness == 0)

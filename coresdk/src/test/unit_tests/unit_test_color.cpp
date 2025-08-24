@@ -96,6 +96,7 @@ TEST_CASE("hsb_color converts HSB to RGB correctly", "[hsb_color]")
         REQUIRE(red_of(red) == 255);
         REQUIRE(green_of(red) == 0);
         REQUIRE(blue_of(red) == 0);
+        REQUIRE(alpha_of(red) == 255);
     }
 
     SECTION("pure green from HSB")
@@ -104,6 +105,7 @@ TEST_CASE("hsb_color converts HSB to RGB correctly", "[hsb_color]")
         REQUIRE(red_of(green) == 0);
         REQUIRE(green_of(green) == 255);
         REQUIRE(blue_of(green) == 0);
+        REQUIRE(alpha_of(green) == 255);
     }
 
     SECTION("pure blue from HSB")
@@ -112,6 +114,7 @@ TEST_CASE("hsb_color converts HSB to RGB correctly", "[hsb_color]")
         REQUIRE(red_of(blue) == 0);
         REQUIRE(green_of(blue) == 0);
         REQUIRE(blue_of(blue) == 255);
+        REQUIRE(alpha_of(blue) == 255);
     }
 
     SECTION("pure yellow from HSB")
@@ -120,6 +123,7 @@ TEST_CASE("hsb_color converts HSB to RGB correctly", "[hsb_color]")
         REQUIRE(red_of(yellow) == 255);
         REQUIRE(green_of(yellow) == 255);
         REQUIRE(blue_of(yellow) == 0);
+        REQUIRE(alpha_of(yellow) == 255);
     }
 
     SECTION("pure cyan from HSB")
@@ -128,6 +132,7 @@ TEST_CASE("hsb_color converts HSB to RGB correctly", "[hsb_color]")
         REQUIRE(red_of(cyan) == 0);
         REQUIRE(green_of(cyan) == 255);
         REQUIRE(blue_of(cyan) == 255);
+        REQUIRE(alpha_of(cyan) == 255);
     }
 
     SECTION("pure magenta from HSB")
@@ -136,6 +141,7 @@ TEST_CASE("hsb_color converts HSB to RGB correctly", "[hsb_color]")
         REQUIRE(red_of(magenta) == 255);
         REQUIRE(green_of(magenta) == 0);
         REQUIRE(blue_of(magenta) == 255);
+        REQUIRE(alpha_of(magenta) == 255);
     }
     
     SECTION("Out-of-bounds values still return valid colors")
